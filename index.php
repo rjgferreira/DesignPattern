@@ -10,7 +10,7 @@ spl_autoload_register();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Cross | Over Application</title>
+    <title>Design Pattern - FormGen</title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -26,18 +26,20 @@ spl_autoload_register();
 <div class="row">
     <div class="container">
         <br>
-        <div class="panel panel-default">
-            <div class="panel-heading"><h4>Acesso restrito</h4></div>
-            <div class="panel-body">
-                <?php
-                    $form = new \RJGF\Formulario\Formulario('form','p','m');
-                    $form->addField('nome','Nome','','t','','s')
-                        ->addField('email','E-mail','','e','','s')
-                        ->addField('senha','Senha','','p','','s')
-                        ->addField('nopssw','','Esqueci minha senha :(', 'c','','',true)
-                        ->addField('','','','sb','btn btn-primary','','Enviar')
-                        ->render();
-                ?>
+        <div class="col-lg-offset-3 col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Acesso restrito</h4></div>
+                <div class="panel-body">
+                    <?php
+                        $form = new \RJGF\Formulario\Formulario('form','p','m');
+                        $form->addField('nome','Nome','','t','','s')
+                            ->addField('email','E-mail','','e','','s')
+                            ->addField('senha','Senha','','p','','s')
+                            ->addField('nopssw','','Esqueci minha senha :(', 'c','','',true)
+                            ->addField('','','','sb','btn btn-primary','','Enviar')
+                            ->render();
+                    ?>
+                </div>
             </div>
         </div>
     </div>
