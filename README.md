@@ -1,3 +1,6 @@
+- v0.1.1
+- Inclusão de novo tipo de input: checkbox
+
 - Design Pattern (projeto fase 1)
 	Formulário básico:
 		- Criar uma classe(s) que seja responsável por gerar um formulário HTML de forma totalmente dinâmico;
