@@ -24,36 +24,41 @@ class Formulario implements FormGen
     }
 
     /* Os campos do formulário terão as seguintes configurações
-     * type -> ( t = text | e = email | ta = textarea | p = password | s = submit ) (default = text)
+     * type -> ( t = text | e = email | ta = textarea | p = password | s = submit | c = checkbox ) (default = text)
      * cssClass -> form-control (default)
+     * required -> s
      * */
 
-    public function addField($name=null, $placeholder=null, $type=null, $cssClass=null, $required=null, $value=null, $rows=null, $cols=null)
+    public function addField($name=null,  $placeholder=null, $label=null, $type=null, $cssClass=null, $required=null, $value=null, $rows=null, $cols=null)
     {
         switch ($type) {
             case null:
             case "t":
-                $this->html[] = '<div class="form-group"><input name="'.$name.'" type="text" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass('f',$cssClass).self::setRequired($required).'  /></div>';
+                $this->html[] = "\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="text" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass('f',$cssClass).self::setRequired($required).'></div>';
                 return $this;
                 break;
             case "e":
-                $this->html[] = '<div class="form-group"><input name="'.$name.'" type="email" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass('f',$cssClass).self::setRequired($required).'  /></div>';
+                $this->html[] = "\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="email" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass('f',$cssClass).self::setRequired($required).'></div>';
                 return $this;
                 break;
             case "ta":
-                $this->html[] = '<div class="form-group"><textarea name="'.$name.'" rows="'.$rows.'" cols="'.$cols.'"'.($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass('f',$cssClass).self::setRequired($required).'>'.($value!=null?$value:'').'</textarea></div>';
+                $this->html[] = "\n".'<div class="form-group">'."\n".'<textarea name="'.$name.'" rows="'.$rows.'" cols="'.$cols.'"'.($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass('f',$cssClass).self::setRequired($required).'>'.($value!=null?$value:'').'</textarea></div>';
                 return $this;
                 break;
             case "p":
-                $this->html[] = '<div class="form-group"><input name="'.$name.'" type="password" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').(self::setClass('f',$cssClass)).self::setRequired($required).' /></div>';
+                $this->html[] = "\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="password" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').(self::setClass('f',$cssClass)).self::setRequired($required).'></div>';
                 return $this;
                 break;
-            case "s":
-                $this->html[] = '<div class="form-group"><input name="'.$name.'" type="submit" '.($value!=null?'value="'.$value.'"':'value="ENVIAR"').self::setClass('f',$cssClass).self::setRequired($required).' /></div>';
+            case "c":
+                $this->html[] = "\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="checkbox" value="'.$value.'"> '.$label.'</div>';
+                return $this;
+                break;
+            case "sb":
+                $this->html[] = "\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="submit" '.($value!=null?'value="'.$value.'"':'value="ENVIAR"').self::setClass('f',$cssClass).self::setRequired($required).'></div>';
                 return $this;
                 break;
             default:
-                $this->html[] = '<div class="form-group"><input name="'.$name.'" type="text" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass('f',$cssClass).self::setRequired($required).'  /></div>';
+                $this->html[] = "\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="text" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass('f',$cssClass).self::setRequired($required).'></div>';
                 return $this;
                 break;
         }
@@ -71,9 +76,6 @@ class Formulario implements FormGen
         if($v!=null)
             if($v=='s')
                 return ' required';
-            else
-                return null;
-        return null;
     }
 
     private function setMethod($m){
@@ -89,10 +91,6 @@ class Formulario implements FormGen
         if($urlFile!=null)
             if(is_file($urlFile))
                 return $urlFile;
-            else
-                return null;
-        else
-            return null;
     }
 
     private function setEnctype($e){

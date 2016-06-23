@@ -27,17 +27,17 @@ spl_autoload_register();
     <div class="container">
         <br>
         <div class="panel panel-default">
-            <div class="panel-heading"><strong>Acesso restrito</strong></div>
+            <div class="panel-heading"><h4>Acesso restrito</h4></div>
             <div class="panel-body">
                 <?php
-                    $form = new \RJGF\Formulario\Formulario('Login', 'form','m');
-                    $form->addField('nome','Nome','t','','s')
-                        ->addField('email','E-mail','e','','s')
-                        ->addField('senha','Senha','p','','s')
-                        ->addField('','','s','btn btn-primary','Enviar')
+                    $form = new \RJGF\Formulario\Formulario('form','p','m');
+                    $form->addField('nome','Nome','','t','','s')
+                        ->addField('email','E-mail','','e','','s')
+                        ->addField('senha','Senha','','p','','s')
+                        ->addField('nopssw','','Esqueci minha senha :(', 'c','','',true)
+                        ->addField('','','','sb','btn btn-primary','','Enviar')
                         ->render();
                 ?>
-                </div>
             </div>
         </div>
     </div>
