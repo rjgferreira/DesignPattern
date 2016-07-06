@@ -32,11 +32,11 @@ spl_autoload_register();
                 <div class="panel-body">
                     <?php
                         $form = new \RJGF\Formulario\Formulario('form','p','m');
-                        $form->addField('nome','Nome','','t','','s')
-                            ->addField('email','E-mail','','e','','s')
-                            ->addField('senha','Senha','','p','','s')
-                            ->addField('nopssw','','Esqueci minha senha :(', 'c','','',true)
-                            ->addField('','','','sb','btn btn-primary','','Enviar')
+                        $form->createField('nome','Nome','','t','','s')
+                            ->createField('email','E-mail','','e','','s')
+                            ->createField('senha','Senha','','p','','s')
+                            ->createField('nopssw','','Esqueci minha senha :(', 'c','','',true)
+                            ->createField('','','','sb','btn btn-primary','','Enviar')
                             ->render();
                     ?>
                 </div>
