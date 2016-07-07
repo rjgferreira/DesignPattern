@@ -15,7 +15,7 @@ class Formulario implements FormGen
      * css -> form (default)
      * */
 
-    public function __construct($cssClass = null, $method = null, $enctype = null, $action = null){
+    public function __construct(Validator $validator, $cssClass = null, $method = null, $enctype = null, $action = null){
         $this->html = array();
         $this->action = self::setFile($action);
         $this->enctype = self::setEnctype($enctype);
@@ -27,39 +27,47 @@ class Formulario implements FormGen
      * type -> ( t = text | e = email | ta = textarea | p = password | s = submit | c = checkbox ) (default = text)
      * cssClass -> form-control (default)
      * required -> s
+     * render -> false
      * */
 
-    public function addField($name=null,  $placeholder=null, $label=null, $type=null, $cssClass=null, $required=null, $value=null, $rows=null, $cols=null)
+    public function createField($name=null,  $placeholder=null, $label=null, $type=null, $cssClass=null, $required=null, $value=null, $rows=null, $cols=null, $render=false)
     {
         switch ($type) {
             case null:
             case "t":
                 $this->html[] = "\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="text" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass('f',$cssClass).self::setRequired($required).'></div>';
-                return $this;
+                if($render){self::render();}
+                else{ return $this; }
                 break;
             case "e":
                 $this->html[] = "\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="email" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass('f',$cssClass).self::setRequired($required).'></div>';
-                return $this;
+                if($render){self::render();}
+                else{ return $this; }
                 break;
             case "ta":
                 $this->html[] = "\n".'<div class="form-group">'."\n".'<textarea name="'.$name.'" rows="'.$rows.'" cols="'.$cols.'"'.($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass('f',$cssClass).self::setRequired($required).'>'.($value!=null?$value:'').'</textarea></div>';
-                return $this;
+                if($render){self::render();}
+                else{ return $this; }
                 break;
             case "p":
                 $this->html[] = "\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="password" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').(self::setClass('f',$cssClass)).self::setRequired($required).'></div>';
-                return $this;
+                if($render){self::render();}
+                else{ return $this; }
                 break;
             case "c":
                 $this->html[] = "\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="checkbox" value="'.$value.'"> '.$label.'</div>';
-                return $this;
+                if($render){self::render();}
+                else{ return $this; }
                 break;
             case "sb":
                 $this->html[] = "\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="submit" '.($value!=null?'value="'.$value.'"':'value="ENVIAR"').self::setClass('f',$cssClass).self::setRequired($required).'></div>';
-                return $this;
+                if($render){self::render();}
+                else{ return $this; }
                 break;
             default:
                 $this->html[] = "\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="text" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass('f',$cssClass).self::setRequired($required).'></div>';
-                return $this;
+                if($render){self::render();}
+                else{ return $this; }
                 break;
         }
     }
@@ -103,6 +111,7 @@ class Formulario implements FormGen
     }
 
     private function setClass($tipo, $css){
+        // TIPOS: F -> Form | f -> field
         if($tipo=='F')
             if($css==null)
                 return ' class="form"';
