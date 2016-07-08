@@ -1,6 +1,6 @@
 <?php
-namespace RJGF\Formulario;
-use RJGF\Formulario\Request;
+namespace RJGF\Form;
+use RJGF\Form\Request;
 class Validator
 {
     public function __construct(Request $request){

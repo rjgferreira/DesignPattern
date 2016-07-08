@@ -1,0 +1,89 @@
+<?php
+namespace RJGF\Form;
+use RJGF\Form\Interfaces\FieldGen;
+
+class Fields implements FieldGen
+{
+    private $html;
+
+    public function __construct(){
+        $this->html = array();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHtml()
+    {
+        return $this->html;
+    }
+
+    /**
+     * @param mixed $html
+     */
+    private function setHtml($html)
+    {
+        $this->html[] = $html;
+    }
+
+    /* Os campos do formulário terão as seguintes configurações
+     * type -> ( t = text | e = email | ta = textarea | p = password | s = submit | c = checkbox ) (default = text)
+     * cssClass -> form-control (default)
+     * required -> s
+     * */
+    public function createField($name=null,  $placeholder=null, $label=null, $type=null, $cssClass=null, $required=null, $value=null, $rows=null, $cols=null)
+    {
+        switch ($type) {
+            case null:
+            case "t":
+                self::setHtml("\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="text" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass($cssClass).self::setRequired($required).'></div>');
+                break;
+            case "e":
+                self::setHtml("\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="email" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass($cssClass).self::setRequired($required).'></div>');
+                break;
+            case "ta":
+                self::setHtml("\n".'<div class="form-group">'."\n".'<textarea name="'.$name.'" rows="'.$rows.'" cols="'.$cols.'"'.($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass($cssClass).self::setRequired($required).'>'.($value!=null?$value:'').'</textarea></div>');
+                break;
+            case "p":
+                self::setHtml("\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="password" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').(self::setClass($cssClass)).self::setRequired($required).'></div>');
+                break;
+            case "c":
+                self::setHtml("\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="checkbox" value="'.$value.'"> '.$label.'</div>');
+                break;
+            case "sb":
+                self::setHtml("\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="submit" '.($value!=null?'value="'.$value.'"':'value="ENVIAR"').self::setClass($cssClass).self::setRequired($required).'></div>');
+                break;
+            default:
+                self::setHtml("\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="text" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass($cssClass).self::setRequired($required).'></div>');
+                break;
+        }
+        return $this;
+    }
+
+    private function setRequired($v){
+        if($v!=null)
+            if($v=='s')
+                return ' required';
+    }
+
+
+    private function setClass($css){
+        if($css==null)
+            return ' class="form-control"';
+        else
+            return ' class="'.$css.'"';
+    }
+
+
+    public function render()
+    {
+        for($i=0;$i<count($this->html);$i++){
+            echo $this->html[$i];
+        }
+        unset($this->html);
+    }
+
+    public function clearHtml(){
+        unset($this->html);
+    }
+}

@@ -2,6 +2,10 @@
 define('CLASS_DIR','src/');
 set_include_path(get_include_path().PATH_SEPARATOR.CLASS_DIR);
 spl_autoload_register();
+
+$fields = new \RJGF\Form\Fields();
+$request = new \RJGF\Form\Request();
+$validator = new \RJGF\Form\Validator($request);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,13 +35,14 @@ spl_autoload_register();
                 <div class="panel-heading"><h4>Contato</h4></div>
                 <div class="panel-body">
                     <?php
-                    $request = new \RJGF\Formulario\Request();
-                    $validator = new \RJGF\Formulario\Validator($request);
-                    $form = new \RJGF\Formulario\Formulario($validator, 'form','p','m');
-                    $form->createField('nome','Nome','','t','','s')
+                    $fields->createField('nome','Nome','','t','','s')
                         ->createField('email','E-mail','','e','','s')
                         ->createField('mensagem','Mensagem','','ta','','s','')
-                        ->createField('','','','sb','btn btn-primary pull-right','','Enviar','','',true);
+                        ->createField('','','','sb','btn btn-primary pull-right','','Enviar','','');
+                    $form = new \RJGF\Form\Form($validator, $fields, 'form','p','m');
+                    $form->openForm();
+                    $fields->render();
+                    $form->closeForm();
                     ?>
                 </div>
             </div>
@@ -47,14 +52,14 @@ spl_autoload_register();
                 <div class="panel-heading"><h4>Acesso restrito</h4></div>
                 <div class="panel-body">
                     <?php
-                    $request = new \RJGF\Formulario\Request();
-                    $validator = new \RJGF\Formulario\Validator($request);
-                    $form = new \RJGF\Formulario\Formulario($validator, 'form','p','m');
-                    $form->createField('email','E-mail','','e','','s')
+                    $fields->createField('email','E-mail','','e','','s')
                         ->createField('senha','Senha','','p','','s')
                         ->createField('nopssw','','Esqueci minha senha', 'c','','',true)
-                        ->createField('','','','sb','btn btn-primary pull-right','','Acessar')
-                        ->render();
+                        ->createField('','','','sb','btn btn-primary pull-right','','Acessar');
+                    $form = new \RJGF\Form\Form($validator, $fields, 'form','p','m');
+                    $form->openForm();
+                    $fields->render();
+                    $form->closeForm();
                     ?>
                 </div>
             </div>
@@ -66,11 +71,12 @@ spl_autoload_register();
                 <div class="panel-heading"><h4>Pesquisar</h4></div>
                 <div class="panel-body">
                     <?php
-                        $request = new \RJGF\Formulario\Request();
-                        $validator = new \RJGF\Formulario\Validator($request);
-                        $form = new \RJGF\Formulario\Formulario($validator, 'form','p','m');
-                        $form->createField('srch','Digite um termo para a pesquisa','','t','','s')
-                            ->createField('','','','sb','btn btn-primary pull-right','','Ok','','',true);
+                    $fields->createField('srch','Digite um termo para a pesquisa','','t','','s')
+                            ->createField('','','','sb','btn btn-primary pull-right','','Ok','','');
+                    $form = new \RJGF\Form\Form($validator, $fields, 'form','p','m');
+                    $form->openForm();
+                    $fields->render();
+                    $form->closeForm();
                     ?>
                 </div>
             </div>
@@ -80,31 +86,35 @@ spl_autoload_register();
                 <div class="panel-heading"><h4>Registrar conta</h4></div>
                 <div class="panel-body">
                     <?php
-                    $request = new \RJGF\Formulario\Request();
-                    $validator = new \RJGF\Formulario\Validator($request);
-                    $form = new \RJGF\Formulario\Formulario($validator, 'form','p','m');
-                    $form->createField('nome','Digite seu nome','','t','','s')
+                    $fields->createField('nome','Digite seu nome','','t','','s')
                         ->createField('email','E-mail para contato','','e','','s')
                         ->createField('senha','Senha de acesso','','p','','s')
-                        ->createField('','','','sb','btn btn-primary pull-right','','Cadastrar','','',true);
+                        ->createField('','','','sb','btn btn-primary pull-right','','Cadastrar','','');
+                    $form = new \RJGF\Form\Form($validator, $fields, 'form','p','m');
+                    $form->openForm();
+                    $fields->render();
+                    $form->closeForm();
                     ?>
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="panel panel-default">
-                <div class="panel-heading"><h4>Enquete:</h4><span>Da lista abaixo, qual o melhor filme pra voc&ecirc;?</span></div>
+                <div class="panel-heading"><h4>Enquete:</h4><span>Da lista, quais os filmes que voc&ecirc; mais gosta?</span></div>
                 <div class="panel-body">
+                    <div class="checkbox-group required">
                     <?php
-                    $request = new \RJGF\Formulario\Request();
-                    $validator = new \RJGF\Formulario\Validator($request);
-                    $form = new \RJGF\Formulario\Formulario($validator, 'form','p','m');
-                    $form->createField('filme1','','Volta ao mundo em oitenta dias','c','','s')
-                        ->createField('filme2','','Mary Poppins','c','','s')
-                        ->createField('filme3','','101 Dalmatas','c','','s')
-                        ->createField('filme4','','Fantasia', 'c','','s')
-                        ->createField('','','','sb','btn btn-primary','','Votar','','',true);
+                    $fields->createField('filme','','Volta ao mundo em oitenta dias','c','','s')
+                        ->createField('filme','','Mary Poppins','c','group-required','s')
+                        ->createField('filme','','101 Dalmatas','c','group-required','s')
+                        ->createField('filme','','Fantasia', 'c','group-required','s')
+                        ->createField('','','','sb','btn btn-primary','','Votar','','');
+                    $form = new \RJGF\Form\Form($validator, $fields, 'form','p','m');
+                    $form->openForm()
+                        ->render()
+                        ->closeForm();
                     ?>
+                    </div>
                 </div>
             </div>
         </div>
