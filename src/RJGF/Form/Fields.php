@@ -29,10 +29,17 @@ class Fields implements FieldGen
     /* Os campos do formulário terão as seguintes configurações
      * type -> ( t = text | e = email | ta = textarea | p = password | s = submit | c = checkbox ) (default = text)
      * cssClass -> form-control (default)
+     * fieldset -> o = open | c = close
      * required -> s
      * */
-    public function createField($name=null,  $placeholder=null, $label=null, $type=null, $cssClass=null, $required=null, $value=null, $rows=null, $cols=null)
+    public function createField($name=null,  $placeholder=null, $label=null, $type=null, $cssClass=null, $required=null, $value=null, $rows=null, $cols=null, $fieldset=null, $legend=null)
     {
+        if($fieldset=='o'){
+            self::setHtml('<fieldset>');
+            if($legend!=null){
+                self::setHtml('<legend>'.$legend.'</legend>');
+            }
+        }
         switch ($type) {
             case null:
             case "t":
@@ -56,6 +63,9 @@ class Fields implements FieldGen
             default:
                 self::setHtml("\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="text" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass($cssClass).self::setRequired($required).'></div>');
                 break;
+        }
+        if($fieldset=='c') {
+            self::setHtml('</fieldset>');
         }
         return $this;
     }

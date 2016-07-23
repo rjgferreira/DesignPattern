@@ -20,6 +20,7 @@ $validator = new \RJGF\Form\Validator($request);
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
         body{font-family: "Open Sans"; }
+        legend{font-size:16px;}
     </style>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -52,10 +53,10 @@ $validator = new \RJGF\Form\Validator($request);
                 <div class="panel-heading"><h4>Acesso restrito</h4></div>
                 <div class="panel-body">
                     <?php
-                    $fields->createField('email','E-mail','','e','','s')
+                    $fields->createField('email','E-mail','','e','','s','','','','o','Identifique-se')
                         ->createField('senha','Senha','','p','','s')
                         ->createField('nopssw','','Esqueci minha senha', 'c','','',true)
-                        ->createField('','','','sb','btn btn-primary pull-right','','Acessar');
+                        ->createField('','','','sb','btn btn-primary pull-right','','Acessar','','','c');
                     $form = new \RJGF\Form\Form($validator, $fields, 'form','p','m');
                     $form->openForm();
                     $fields->render();
@@ -86,10 +87,10 @@ $validator = new \RJGF\Form\Validator($request);
                 <div class="panel-heading"><h4>Registrar conta</h4></div>
                 <div class="panel-body">
                     <?php
-                    $fields->createField('nome','Digite seu nome','','t','','s')
+                    $fields->createField('nome','Digite seu nome','','t','','s','','','','o','Identifique-se')
                         ->createField('email','E-mail para contato','','e','','s')
                         ->createField('senha','Senha de acesso','','p','','s')
-                        ->createField('','','','sb','btn btn-primary pull-right','','Cadastrar','','');
+                        ->createField('','','','sb','btn btn-primary pull-right','','Cadastrar','','','c');
                     $form = new \RJGF\Form\Form($validator, $fields, 'form','p','m');
                     $form->openForm();
                     $fields->render();
