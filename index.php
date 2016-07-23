@@ -33,13 +33,13 @@ $validator = new \RJGF\Form\Validator($request);
         <br>
         <div class="col-lg-6">
             <div class="panel panel-default">
-                <div class="panel-heading"><h4>Contato</h4></div>
+                <div class="panel-heading"><h4>Registrar conta</h4></div>
                 <div class="panel-body">
                     <?php
-                    $fields->createField('nome','Nome','','t','','s')
-                        ->createField('email','E-mail','','e','','s')
-                        ->createField('mensagem','Mensagem','','ta','','s','')
-                        ->createField('','','','sb','btn btn-primary pull-right','','Enviar','','');
+                    $fields->createField('nome','Digite seu nome','','t','','s','','','','o','Identifique-se')
+                        ->createField('email','E-mail para contato','','e','','s')
+                        ->createField('senha','Senha de acesso','','p','','s')
+                        ->createField('','','','sb','btn btn-primary pull-right','','Cadastrar','','','c');
                     $form = new \RJGF\Form\Form($validator, $fields, 'form','p','m');
                     $form->openForm();
                     $fields->render();
@@ -67,13 +67,15 @@ $validator = new \RJGF\Form\Validator($request);
         </div>
     </div>
     <div class="container">
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <div class="panel panel-default">
-                <div class="panel-heading"><h4>Pesquisar</h4></div>
+                <div class="panel-heading"><h4>Contato</h4></div>
                 <div class="panel-body">
                     <?php
-                    $fields->createField('srch','Digite um termo para a pesquisa','','t','','s')
-                            ->createField('','','','sb','btn btn-primary pull-right','','Ok','','');
+                    $fields->createField('nome','Nome','','t','','s')
+                        ->createField('email','E-mail','','e','','s')
+                        ->createField('mensagem','Mensagem','','ta','','s','')
+                        ->createField('','','','sb','btn btn-primary pull-right','','Enviar','','');
                     $form = new \RJGF\Form\Form($validator, $fields, 'form','p','m');
                     $form->openForm();
                     $fields->render();
@@ -82,24 +84,7 @@ $validator = new \RJGF\Form\Validator($request);
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h4>Registrar conta</h4></div>
-                <div class="panel-body">
-                    <?php
-                    $fields->createField('nome','Digite seu nome','','t','','s','','','','o','Identifique-se')
-                        ->createField('email','E-mail para contato','','e','','s')
-                        ->createField('senha','Senha de acesso','','p','','s')
-                        ->createField('','','','sb','btn btn-primary pull-right','','Cadastrar','','','c');
-                    $form = new \RJGF\Form\Form($validator, $fields, 'form','p','m');
-                    $form->openForm();
-                    $fields->render();
-                    $form->closeForm();
-                    ?>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading"><h4>Enquete:</h4><span>Da lista, quais os filmes que voc&ecirc; mais gosta?</span></div>
                 <div class="panel-body">
