@@ -8,6 +8,7 @@ class Form implements FormGen
     private $method;
     private $enctype;
     private $fields;
+    private $validator;
     private $css;
 
     /* Opções para criação do formulário:
@@ -23,6 +24,7 @@ class Form implements FormGen
         $this->method = self::setMethod($method);
         $this->css = self::setClass($cssClass);
         $this->fields = $fields;
+        $this->validator = $validator;
     }
 
     public function openForm(){
@@ -34,8 +36,39 @@ class Form implements FormGen
         echo "</form>";
     }
 
+    public function populate($dados){
+        if(is_array($dados)) {
+            foreach ($dados as $key => $dado) {
+                    $this->fields->createField(
+                        $dado['name'],
+                        $dado['placeholder'],
+                        $dado['label'],
+                        $dado['type'],
+                        $dado['cssClass'],
+                        $dado['required'],
+                        $dado['value'],
+                        $dado['rows'],
+                        $dado['cols'],
+                        $dado['fieldset'],
+                        $dado['legend']
+                    );
+                    $this->validator->validate($dado['type'], $dado['name'], $dado['value']);
+            }
+        }else{
+            $this->validator->setMessage('O parâmetro "$dados" precisa ser um array.');
+        }
+    }
+
     public function render()
     {
+        $messages = $this->validator->getMessage();
+        if(count($messages)>0){
+            echo '<div class="btn btn-warning" style="width:100%;margin-bottom:10px;">';
+            foreach($messages as $message){
+               echo $message.'<br>';
+            }
+            echo "</div>";
+        }
         $html = $this->fields->getHtml();
         for($i=0;$i<count($html);$i++){
             echo $html[$i];

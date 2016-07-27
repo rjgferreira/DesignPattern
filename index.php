@@ -2,10 +2,72 @@
 define('CLASS_DIR','src/');
 set_include_path(get_include_path().PATH_SEPARATOR.CLASS_DIR);
 spl_autoload_register();
-
 $fields = new \RJGF\Form\Fields();
 $request = new \RJGF\Form\Request();
 $validator = new \RJGF\Form\Validator($request);
+$categorias = new \RJGF\Form\Categorias(new PDO('sqlite:categorias.sqlite3'));
+$dados = array(
+    0=>array(
+        'name'=>'nome',
+        'placeholder'=>'Nome',
+        'label'=>'',
+        'type'=>'t',
+        'cssClass'=>'',
+        'required'=>'s',
+        'value'=>(isset($_POST['nome'])?$_POST['nome']:''),
+        'rows'=>'',
+        'cols'=>'',
+        'fieldset'=>'o',
+        'legend'=>'Produto'),
+    1=>array(
+        'name'=>'valor',
+        'placeholder'=>"Pre&ccedil;o",
+        'label'=>'',
+        'type'=>'t',
+        'cssClass'=>'',
+        'required'=>'s',
+        'value'=>(isset($_POST['valor'])?(int)$_POST['valor']:'Hum mil, quinhentos e cinquenta reais'),
+        'rows'=>'',
+        'cols'=>'',
+        'fieldset'=>'',
+        'legend'=>''),
+    2=>array(
+        'name'=>'descricao',
+        'placeholder'=>"Descri&ccedil;&atilde;o",
+        'label'=>'',
+        'type'=>'t',
+        'cssClass'=>'',
+        'required'=>'s',
+        'value'=>(isset($_POST['descricao'])?$_POST['descricao']:'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.'),
+        'rows'=>'',
+        'cols'=>'',
+        'fieldset'=>'',
+        'legend'=>''),
+    3=>array(
+        'name'=>'categorias',
+        'placeholder'=>'',
+        'label'=>'',
+        'type'=>'sl',
+        'cssClass'=>'',
+        'required'=>'s',
+        'value'=>$categorias->getCategorias(),
+        'rows'=>'',
+        'cols'=>'',
+        'fieldset'=>'',
+        'legend'=>''),
+    4=>array(
+        'name'=>'',
+        'placeholder'=>'',
+        'label'=>'',
+        'type'=>'sb',
+        'cssClass'=>'btn btn-primary pull-right',
+        'required'=>'',
+        'value'=>'Cadastrar',
+        'rows'=>'',
+        'cols'=>'',
+        'fieldset'=>'c',
+        'legend'=>'')
+);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,76 +93,17 @@ $validator = new \RJGF\Form\Validator($request);
 <div class="row">
     <div class="container">
         <br>
-        <div class="col-lg-6">
+        <div class="col-lg-offset-3 col-lg-6">
             <div class="panel panel-default">
-                <div class="panel-heading"><h4>Registrar conta</h4></div>
+                <div class="panel-heading"><h4>Cadastro</h4></div>
                 <div class="panel-body">
                     <?php
-                    $fields->createField('nome','Digite seu nome','','t','','s','','','','o','Identifique-se')
-                        ->createField('email','E-mail para contato','','e','','s')
-                        ->createField('senha','Senha de acesso','','p','','s')
-                        ->createField('','','','sb','btn btn-primary pull-right','','Cadastrar','','','c');
                     $form = new \RJGF\Form\Form($validator, $fields, 'form','p','m');
                     $form->openForm();
-                    $fields->render();
+                    $form->populate($dados);
+                    $form->render();
                     $form->closeForm();
                     ?>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h4>Acesso restrito</h4></div>
-                <div class="panel-body">
-                    <?php
-                    $fields->createField('email','E-mail','','e','','s','','','','o','Identifique-se')
-                        ->createField('senha','Senha','','p','','s')
-                        ->createField('nopssw','','Esqueci minha senha', 'c','','',true)
-                        ->createField('','','','sb','btn btn-primary pull-right','','Acessar','','','c');
-                    $form = new \RJGF\Form\Form($validator, $fields, 'form','p','m');
-                    $form->openForm();
-                    $fields->render();
-                    $form->closeForm();
-                    ?>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="col-lg-6">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h4>Contato</h4></div>
-                <div class="panel-body">
-                    <?php
-                    $fields->createField('nome','Nome','','t','','s')
-                        ->createField('email','E-mail','','e','','s')
-                        ->createField('mensagem','Mensagem','','ta','','s','')
-                        ->createField('','','','sb','btn btn-primary pull-right','','Enviar','','');
-                    $form = new \RJGF\Form\Form($validator, $fields, 'form','p','m');
-                    $form->openForm();
-                    $fields->render();
-                    $form->closeForm();
-                    ?>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h4>Enquete:</h4><span>Da lista, quais os filmes que voc&ecirc; mais gosta?</span></div>
-                <div class="panel-body">
-                    <div class="checkbox-group required">
-                    <?php
-                    $fields->createField('filme','','Volta ao mundo em oitenta dias','c','','s')
-                        ->createField('filme','','Mary Poppins','c','group-required','s')
-                        ->createField('filme','','101 Dalmatas','c','group-required','s')
-                        ->createField('filme','','Fantasia', 'c','group-required','s')
-                        ->createField('','','','sb','btn btn-primary','','Votar','','');
-                    $form = new \RJGF\Form\Form($validator, $fields, 'form','p','m');
-                    $form->openForm()
-                        ->render()
-                        ->closeForm();
-                    ?>
-                    </div>
                 </div>
             </div>
         </div>

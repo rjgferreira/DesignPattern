@@ -60,6 +60,16 @@ class Fields implements FieldGen
             case "sb":
                 self::setHtml("\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="submit" '.($value!=null?'value="'.$value.'"':'value="ENVIAR"').self::setClass($cssClass).self::setRequired($required).'></div>');
                 break;
+            case "sl":
+                self::setHtml("\n".'<div class="form-group">'."\n".'<select id="'.$name.'" name="'.$name.'" '.self::setClass($cssClass).self::setRequired($required).'>');
+                if(is_array($value)){
+                    self::setHtml("\n".'<option value="-1">-------------------------------- Selecionar categoria --------------------------------</option>');
+                    foreach($value as $v){
+                        self::setHtml("\n".'<option value="'.$v['id'].'">'.$v['titulo']."</option>");
+                    }
+                }
+                self::setHtml("\n".'</select></div>');
+                break;
             default:
                 self::setHtml("\n".'<div class="form-group">'."\n".'<input name="'.$name.'" type="text" '.($value!=null?' value="'.$value.'"':'').($placeholder!=null?' placeholder="'.$placeholder.'"':'').self::setClass($cssClass).self::setRequired($required).'></div>');
                 break;
@@ -83,7 +93,6 @@ class Fields implements FieldGen
         else
             return ' class="'.$css.'"';
     }
-
 
     public function render()
     {
