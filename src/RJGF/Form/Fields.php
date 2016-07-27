@@ -11,27 +11,27 @@ class Fields implements FieldGen
     }
 
     /**
-     * @return mixed
-     */
+    * @return mixed
+    */
     public function getHtml()
     {
         return $this->html;
     }
 
     /**
-     * @param mixed $html
-     */
+    * @param mixed $html
+    */
     private function setHtml($html)
     {
         $this->html[] = $html;
     }
 
     /* Os campos do formulário terão as seguintes configurações
-     * type -> ( t = text | e = email | ta = textarea | p = password | s = submit | c = checkbox ) (default = text)
-     * cssClass -> form-control (default)
-     * fieldset -> o = open | c = close
-     * required -> s
-     * */
+    * type -> ( t = text | e = email | ta = textarea | p = password | s = submit | c = checkbox ) (default = text)
+    * cssClass -> form-control (default)
+    * fieldset -> o = open | c = close
+    * required -> s
+    * */
     public function createField($name=null,  $placeholder=null, $label=null, $type=null, $cssClass=null, $required=null, $value=null, $rows=null, $cols=null, $fieldset=null, $legend=null)
     {
         if($fieldset=='o'){
@@ -63,7 +63,7 @@ class Fields implements FieldGen
             case "sl":
                 self::setHtml("\n".'<div class="form-group">'."\n".'<select id="'.$name.'" name="'.$name.'" '.self::setClass($cssClass).self::setRequired($required).'>');
                 if(is_array($value)){
-                    self::setHtml("\n".'<option value="-1">-------------------------------- Selecionar categoria --------------------------------</option>');
+                    self::setHtml("\n".'<option value="0" selected="selected">-------------------------------- Selecionar '.$name.' --------------------------------</option>');
                     foreach($value as $v){
                         self::setHtml("\n".'<option value="'.$v['id'].'">'.$v['titulo']."</option>");
                     }

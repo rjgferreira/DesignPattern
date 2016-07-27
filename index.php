@@ -5,7 +5,7 @@ spl_autoload_register();
 $fields = new \RJGF\Form\Fields();
 $request = new \RJGF\Form\Request();
 $validator = new \RJGF\Form\Validator($request);
-$categorias = new \RJGF\Form\Categorias(new PDO('sqlite:categorias.sqlite3'));
+$categorias = new \RJGF\Produtos\Categorias(new PDO('sqlite:src/RJGF/Produtos/categorias.sqlite3'));
 $dados = array(
     0=>array(
         'name'=>'nome',
@@ -44,7 +44,7 @@ $dados = array(
         'fieldset'=>'',
         'legend'=>''),
     3=>array(
-        'name'=>'categorias',
+        'name'=>'categoria',
         'placeholder'=>'',
         'label'=>'',
         'type'=>'sl',

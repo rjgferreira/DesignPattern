@@ -1,10 +1,11 @@
 <?php
-namespace RJGF\Form;
+namespace RJGF\Produtos;
+use RJGF\Produtos\interfaces\CategoriasGen;
 
-class Categorias
+class Categorias implements CategoriasGen
 {
     private $conexao;
-    public function __construct(\PDO $conexao){
+    function __construct(\PDO $conexao){
         $this->conexao = $conexao;
         $this->conexao->setAttribute(\PDO::ATTR_ERRMODE,
             \PDO::ERRMODE_EXCEPTION);

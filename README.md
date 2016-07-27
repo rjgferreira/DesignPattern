@@ -1,3 +1,18 @@
+- v0.1.4
+- Design Pattern (projeto fase 4)
+	Criar método Populate:
+		- Inserir elementos e valores no formulário com dados vindos de um array (ex. $form->populate($array))
+        - Formulário de cadastro de produtos com os seguintes campos:
+                Nome: Texto
+                Valor: Texto
+                Descrição: Texto
+                Categoria: Select, com as opções vindo dinâmicamente de um banco de dados sqlite.
+        - Exibir mensagens de erro ao popular o formulário nas seguintes situações:
+                Caso o nome do produto não esteja no array ou esteja vazio;
+                Caso o valor do produto não seja numérico
+                Caso a descrição contenha +200 caracteres.
+
+- v0.1.3
 - Design Pattern (projeto fase 3)
 	Funcionalidades:
 		- Adicionar opção para criar um fieldset. Os campos agora ficarão envolvidos por suas tags

@@ -24,8 +24,12 @@ class Validator
                     if (!is_int($value))
                         self::setMessage("O campo \"Pre&ccedil;o\" deve ser num&eacute;rico.");
                 break;
+            case 'sl':
+                if($value==0){
+                    self::setMessage("Selecione uma categoria para o produto.");
+                }
+                break;
             default:
-                '';
                 break;
         }
     }
